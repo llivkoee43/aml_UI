@@ -4,37 +4,157 @@ html, body{
   height:100%;
   background-color: #2A2F35;
   color: #F0EDEE;
+  width:100%;
 }
-.container-fluid{
-  height: 80%;
-  overflow: hidden;
-  margin-top: 10px;
-  padding:1%;
-}
+/* ------------------------- NAVIGATION BAR ----------------------------------*/
 .navbar-brand h4, img{
   display: inline-block;
   margin: 0;
 }
+
 .navbar{
   background-color: #F0EDEE;
   color: #2A2F35;
-}
-.grid_header{
-  margin: .5rem;
-  color: #F0EDEE;
-  border-left: 8px solid #A6D8D4;
+  height:8%
 }
 
-.row{
-  height: 20%;
+/* ---------------------------------------------------------------------------*/
+.container-fluid{
+  height: 87%;
+  overflow: hidden;
+  width:100%;
+  padding: 0;
 }
+/* ---------------------------------------------------------------------------*/
+#controller-container{
+  height: 25%;
+  width: 100%;
+}
+/* -------------------- toggle instruction bar -------------------------------*/
+#instruction{
+  float: right;
+  width:20%;
+  z-index: 1;
+  height:100%;
+}
+
+#instruction_title, #instruction_content {
+  color: #2A2F35;
+  text-align: center;
+  background-color: #F0EDEE;
+  border: solid 1px #c3c3c3;
+  width:100%;
+}
+
+#instruction_content {
+  display: none;
+  height: 100%;
+  overflow:scroll;
+}
+
+/* ----------------------- CONTROLLER PANEL ----------------------------------*/
+#controller{
+  width: 40%;
+  height: 100%;
+  display:inline-block;
+  margin: 1% 0% 0% 3%;
+}
+.slider-container{
+  height: 40%;
+  width: 100%;
+  display:block;
+  margin-top:1%;
+}
+.slider.ui-slider{
+  display:block;
+  width:100%;
+  /* margin:3% 0%; */
+  height: 5px;
+}
+.ui-slider-handle.ui-state-default.ui-corner-all{
+  width: 10px;
+  border-radius:40px;
+  height:20px;
+}
+
+.ui-slider.ui-slider-pips.ui-slider-pip span{
+  top:10px;
+  font-size:10px;
+}
+/* ----------------------- SNA GRAPH & TABLE ---------------------------------*/
+#sub_div{
+  height: 70%;
+  margin: 0% 2.5%;
+  display: block;
+}
+
 text {
   font-size: 10px;
+}
+
+#sna_graph, #desc_div{
+  height:100%;
+  width: 48%;
+  margin:1%;
+}
+
+#sna_graph{
+  float: left;
+}
+
+#desc_div{
+  float: right;
+}
+
+.subdiv_title{
+  height:5%;
+  margin:1% 0%;
+}
+
+.subdiv_div{
+  width: 100%;
+  height: 95%;
+  border-style: solid;
+  border-color: 'coral';
+}
+
+.svg-container {
+  display: inline-block;
+  position: relative;
+  padding-bottom: 100%;
+  vertical-align: top;
+  overflow: hidden;
+}
+.svg-content {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#graph_container{
+  /* height:100%; */
+  width:75%;
+}
+
+#legend_div{
+  width: 19%;
+  /* height: 100%; */
+}
+/* ------------------------ DROPDOWN LIST ------------------------------------*/
+#dropdown {
+    display: inline-block;
+    width: 25%;
+    height: 90%;
+    margin: 1% 0% 0% 2.5%;
+    z-index: 20;
+    float: left;
 }
 
 form {
   position: relative;
   width: 20rem;
+  height: 60%;
 }
 
 .chosen-value,
@@ -43,6 +163,7 @@ form {
   top: 0;
   left: 0;
   width: 100%;
+  z-index: 20;
 }
 
 .chosen-value {
@@ -50,12 +171,16 @@ form {
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 1px;
-  height: 3rem;
-  font-size: 1.1rem;
+  height: 1%;
+  font-size: 15px;
   padding: 0.8rem;
   background-color: #A6D8D4;
   border: 3px solid transparent;
   transition: 0.3s ease-in-out;
+  box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.2);
+  outline: 0;
+  background-color: #A6D8D4;
+  color: #2A2F35;
 }
 .chosen-value::-webkit-input-placeholder {
   color: #333;
@@ -67,41 +192,39 @@ form {
 .chosen-value:hover::-webkit-input-placeholder {
   color: #2A2F35;
 }
-.chosen-value:focus, .chosen-value.open {
-  box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.2);
-  outline: 0;
-  background-color: #A6D8D4;
-  color: #2A2F35;
-}
-.chosen-value:focus::-webkit-input-placeholder, .chosen-value.open::-webkit-input-placeholder {
+
+.chosen-value:focus::-webkit-input-placeholder {
   color: #2A2F35;
 }
 
 .value-list {
   list-style: none;
-  margin-top: 3rem;
+  margin-top: 10%;
   box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-  max-height: 0;
+  overflow: auto;
+  height: 100%;
   transition: 0.3s ease-in-out;
-}
-.value-list.open {
-  max-height: 1000px;
   overflow: auto;
   padding-left: 0px;
+  z-index: 20;
+  border-radius: 0px 0px 12px 12px;
+  background-color: #fafcfd;;
 }
+
+
 .value-list li {
   position: relative;
-  height: 3rem;
+  height: 30%;
   background-color: #fafcfd;
-  padding: 1rem;
-  font-size: 1.1rem;
+  padding-left: 15px;
+  font-size: 15px;
   display: flex;
   align-items: center;
   cursor: pointer;
   transition: background-color 0.3s;
   opacity: 1;
   color: #2A2F35;
+  z-index: 20;
 }
 .value-list li:hover {
   background-color: #A6D8D4;
@@ -112,52 +235,31 @@ form {
   padding: 0;
   opacity: 0;
 }
-
-
-.flex-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 3%;
-  height: 80%;
-}
-
-#svg_div {
-  display: inline-flex;
-  flex-flow: row wrap;;
-  z-index: 10;
-}
-
-#desc_div{
-  display: inline-flex;
-  flex-flow: row wrap;;
-  z-index: 10;
-  margin-right: 5%;
-}
-
-section {
-  flex-flow: center;
-  width: 900px;
-  height: 500px;
+/* -------------------------------------------------------------------------- */
+#text-tip{
+  height:100%;
+  width:100%;
   border-radius: 7px;
-  z-index: 10;
-  /* margin-left: -500px; */
+  display: inline-block;
 }
 
 table {
-  font-size: 15px;
+  /* font-size: 10px; */
   line-height: 10px;
+  width: 100%;
+  height: 400;
 }
 
 th{
   cursor: s-resize;
 }
 
-tr, td {
-  white-space: nowrap;
+tr{
+  width: 100%;
 }
 
-svg{
-  /* width: 100%; */
+tr, td {
+  white-space: nowrap;
 }
 
 .links{
@@ -181,4 +283,11 @@ svg{
 .arrow-active {
   fill: #bfcaca;
   fill-opacity: 1;
+}
+
+/* -------------------------------------------------------------------------- */
+footer{
+  width:100%;
+  height:5%;
+  background-color: #F0EDEE;
 }

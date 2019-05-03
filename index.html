@@ -12,60 +12,99 @@
   <link href='style.css' rel='stylesheet' type="text/css">
   <!-- Load React. -->
   <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <!-- include the jQuery and jQuery UI scripts -->
+  <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+  <!-- plus a jQuery UI theme, here I use "flick" -->
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/flick/jquery-ui.css">
+  <!-- slider library ==> Slider Pips -->
+  <script src="jquery-ui-slider-pips.js"></script>
+  <link rel='stylesheet' href='jquery-ui-slider-pips.css'>
   <!-- Load D3. -->
   <script src="https://d3js.org/d3.v4.min.js"></script>
-  <script src="https://d3js.org/topojson.v2.min.js"></script>
   <script src="https://d3js.org/d3-queue.v3.min.js"></script>
   <script src="https://d3js.org/d3-array.v1.min.js"></script>
-  <script src="https://d3js.org/d3-geo.v1.min.js"></script>
-  <script src="https://d3js.org/d3-geo-projection.v1.min.js"></script>
-  <script src="https://d3js.org/d3-collection.v1.min.js"></script>
   <script src="https://d3js.org/d3-color.v1.min.js"></script>
   <script src="https://d3js.org/d3-format.v1.min.js"></script>
   <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
   <script src="https://d3js.org/d3-scale.v1.min.js"></script>
   <script src="https://d3js.org/d3-color.v1.min.js"></script>
-  <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
   <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+  <script src="https://d3js.org/d3-collection.v1.min.js"></script>
+  <script src="https://d3js.org/d3-dispatch.v1.min.js"></script>
+  <script src="https://d3js.org/d3-dsv.v1.min.js"></script>
+  <script src="https://d3js.org/d3-request.v1.min.js"></script>
 </head>
 <body>
-  <nav class="navbar">
-    <a class="navbar-brand text-justify">
-      <img src="cathaybk.png" width="40.05" height="30" class="d-inline-block align-top" alt="cathaybk">
-      <h4>台幣交易關係網絡</h4>
-    </a>
-  </nav>
-  <div class="container-fluid">
-      <div class='row'>
-        <div class='col-sm5' style='margin:1%'>
-          <img src='select.png' width='30' height='25'class="d-inline-block align-top" alt="cathaybk">
-          <h5 class="d-inline-block align-top" style='margin-left: 1%'>選取第一層關注名單：</h5>
-          <form>
-            <input class="chosen-value" type="text" value="" placeholder="Type to filter">
-            <ul class="value-list" id='selector'></ul>
-          </form>
+<!-- nav bar -->
+<nav class="navbar">
+  <a class="navbar-brand text-justify">
+    <img src="cathaybk.png" width="40.05" height="30" class="d-inline-block align-top" alt="cathaybk">
+    <h4>台幣交易關係網絡</h4>
+  </a>
+</nav>
+<!-- selections & slider -->
+<div class="container-fluid">
+    <div id='controller-container'>
+      <!-- div of instruction -->
+      <div id='instruction'>
+        <div id='instruction_title'>
+          <h6 class="d-inline-block align-center">使用說明</h6>
         </div>
-        <div class='col-sm7' style='margin:1% 13%'>
-          <img src='information.png' width='30' height='30'class="d-inline-block align-top" alt="cathaybk">
-          <h5 class="d-inline-block align-top" style='margin-left: 1%'>使用說明:</h5>
+        <div id='instruction_content'>
           <ul>
-            <li class="text-left" style='font-size: 15px'>紅色圓圈代表關注帳戶，黃色代表其他本行帳戶，珊瑚色代表他行帳戶</li>
+            <li class="text-left" style='font-size: 15px'>請先選擇欲觀察的關注帳戶後，調整篩選的交易金額門檻</li>
             <li class="text-left" style='font-size: 15px'>箭頭為金流方向，線越粗代表交易金流越大</li>
             <li class="text-left" style='font-size: 15px'>點與點的距離越近，代表交易次數越多</li>
           </ul>
         </div>
       </div>
-      <div div id='sub_div' class='flex-container'>
-
-        <div id='sna_graph'></div>
-        <div id='desc_div'></div>
-
+      <!-- div of dropdown -->
+      <div id='dropdown'>
+        <img src='select.png' width='25' height='20'class="d-inline-block align-top" alt="cathaybk">
+        <h6 class="d-inline-block align-top" style='margin-left: 1%'>選取第一層關注名單：</h6>
+        <form>
+          <input class="chosen-value" type="text" value="" name='acct_nbr' placeholder="Type to filter" autocomplete="off">
+          <ul class="value-list" id='selector'></ul>
+        </form>
       </div>
-  </div>
-  <script src='mainJs.js'></script>
+     <!-- div of slider -->
+     <div id=controller>
+       <div class='slider-container'>
+         <h6 class="slider_title">篩選第一層交易金額門檻: NTD$ <span id="L1-number"></span></h6>
+         <div class="slider" id='L1-slider'></div>
+       </div>
+       <div class='slider-container'>
+         <h6 class="slider_title">篩選第二層交易金額門檻: NTD$ <span id="L2-number"></span></h6>
+         <div class="slider" id='L2-slider'></div>
+       </div>
+     </div>
+   </div>
+   <!--  graph div + table -->
+   <div div id='sub_div' class='flex-container'>
+     <div id='sna_graph'>
+       <div class='subdiv_title'>
+         <img src='network.png' width='20' height='20'class="d-inline-block align-center" alt="cathaybk">
+         <h6 class="d-inline-block align-center" style='margin-left: 1%'>關係網絡圖</h6>
+       </div>
+       <div class='subdiv_div'>
+         <div id='graph_container' class='svg-container'></div>
+         <div id='legend_div' class='svg-container'></div>
+       </div>
+     </div>
+     <div id='desc_div'>
+       <div class='subdiv_title'>
+         <img src='money.png' width='20' height='20'class="d-inline-block align-center" alt="cathaybk">
+         <h6 id='txn_records_title' class="d-inline-block align-center" style='margin-left: 1%'>台幣交易對象紀錄   </h6>
+       </div>
+       <div class='subdiv_div'> <section id='text-tip'></section></div>
+     </div>
+   </div>
+</div>
+
+<footer class='footer'></footer>
+
+  <!-- <script src='mainJs3.js'></script> -->
+  <script src='mainJs4.js'></script>
 </body>
 </html>
