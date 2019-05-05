@@ -1,5 +1,5 @@
 d3.queue()
-    .defer(d3.json, 'alert_accts_0428.json')
+    .defer(d3.json, 'data/alert_accts_0428.json')
     .await(callback);
 
  $("#instruction_title").click(function(){
@@ -169,10 +169,12 @@ function callback(error, list) {
                          console.log( 'Could not get posts, server response: ' + textStatus + ': ' + errorThrown );
                      }
                    }).responseJSON;
-
+           console.log(sel);
            let new_nodes = jQuery.parseJSON(sel['acct_list']);
            let new_links = jQuery.parseJSON(sel['txn_records']);
            // console.log(jQuery.parseJSON(sel_links));
+
+
 
            $('#L2-number').html(FormatLongNumber(l2_val));
 
@@ -318,7 +320,7 @@ function callback(error, list) {
                  link.attr("d", positionLink1);
                  link.filter(function(d){ return JSON.stringify(d.target) !== JSON.stringify(d.source); })
                      .attr("d",positionLink2);
-                 // 
+                 //
                  // text.attr("x", function(d) { return d.x; })
                  //     .attr("y", function(d) { return d.y; });
            }

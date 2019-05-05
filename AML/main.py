@@ -6,8 +6,8 @@ from flask import jsonify
 
 app=Flask(__name__)
 CORS(app)
-AML_table=pd.read_csv("../txn_records_0426.csv")
-AML_accts=pd.read_csv("../all_accts_list.csv", encoding='big5')
+AML_table=pd.read_csv("txn_records_0426.csv")
+AML_accts=pd.read_csv("all_accts_list.csv", encoding='big5')
 
 
 # try the following code in terminal
@@ -37,9 +37,9 @@ def Table_filter():
     output_L2=AML_table[AML_table['acct_nbr'].isin(Target_acct)]# L2 transactions
     output_L2 = output_L2[(output_L2['indegree_amt']>=float(threshold_L2)) | (output_L2['outdegree_amt']>=float(threshold_L2))]
     output_L2['level']='L2'
-    links = pd.concat([output_L1, output_L2]) 
-    links = links.drop_duplicates()
+    links = pd.concat([output_L1, output_L2])
     output_links = links.to_json(orient="records", force_ascii=False)
+    print(output_links)
     '''
        get all nodes and required informations
     '''      
@@ -49,7 +49,6 @@ def Table_filter():
         if i not in accts:
             accts.append(i)
     nodes = AML_accts[AML_accts['acct_nbr'].isin(accts)]
-    nodes = nodes.drop_duplicates()
     output_nodes = nodes.to_json(orient='records', force_ascii=False)
     
     
@@ -58,6 +57,7 @@ def Table_filter():
         "acct_list": output_nodes
     }
     
+    print(final_answers)
     return jsonify(final_answers)
 
 
